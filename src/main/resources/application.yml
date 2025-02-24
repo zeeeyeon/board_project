@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: board_project
+
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/board
+
+    redis:
+      host: localhost
+      port: 6379
+
+jwt:
+  secret: "your_super_secret_key_for_jwt_signing"
+  access-token-expiration: 1800000
+  refresh-token-expiration: 2592000000
