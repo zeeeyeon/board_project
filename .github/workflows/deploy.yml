@@ -9,3 +9,13 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Docker Image Build
+        run: docker build -t spring-app:latest .
+
+      - name: Push to Docker Hub
+    
