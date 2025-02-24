@@ -18,4 +18,45 @@ jobs:
         run: docker build -t spring-app:latest .
 
       - name: Push to Docker Hub
-    
+        run: |
+            echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_ID }}" --password-stdin
+            VERSION=$(date +%Y%m%d%H%M%S)  
+            DOCKER_REPO="zeeyeon/board"
+          
+            docker tag spring-app:latest $DOCKER_REPO:$VERSION
+            docker tag spring-app:latest $DOCKER_REPO:latest
+            docker push $DOCKER_REPO:$VERSION
+            docker push $DOCKER_REPO:latest
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd /home/ubuntu/app
+            docker-compose pull
+            docker-compose down
+            docker-compose up -d
+
+  stress-test:
+    needs: deploy
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: Stress Test
+        run: |
+          curl -X GET "http://${{ secrets.EC2_HOST }}:8080" &>/dev/null
+          hey -n 1000 -c 100 "http://${{ secrets.EC2_HOST }}:8080"
+
+
+  notify-discord:
+    needs: stress-test
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: Discord Notification
+        uses: rjstone/discord-webhook-notify@v1
+        with:
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
