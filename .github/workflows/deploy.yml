@@ -16,7 +16,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Docker Image Build
-        run:  cd backend && gradle clean build --no-daemon 
+        run:  cd backend
+              ./gradlew clean build --no-daemon
+              cd ..
               docker build -t spring-app:latest ./backend
 
       - name: Push to Docker Hub
