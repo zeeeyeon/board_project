@@ -1,0 +1,9 @@
+services:
+  backend:
+    image: zeeyeon/board:latest
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
+      - redis

@@ -3,6 +3,7 @@ name: Deploy to EC2
 on:
   push:
     branches:
+      - main
       - develop
       - feature/*
 
@@ -15,17 +16,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Docker Image Build
-        run: docker build -t spring-app:latest .
+        run: docker build -t spring-app:latest ./backend
 
       - name: Push to Docker Hub
         run: |
             echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_ID }}" --password-stdin
-            VERSION=$(date +%Y%m%d%H%M%S)  
             DOCKER_REPO="zeeyeon/board"
-          
-            docker tag spring-app:latest $DOCKER_REPO:$VERSION
             docker tag spring-app:latest $DOCKER_REPO:latest
-            docker push $DOCKER_REPO:$VERSION
             docker push $DOCKER_REPO:latest
 
       - name: Deploy to EC2
@@ -37,18 +34,25 @@ jobs:
           script: |
             cd /home/ubuntu/app
             docker-compose pull
-            docker-compose down
-            docker-compose up -d
+            docker-compose up -d --no-deps backend
 
   stress-test:
     needs: deploy
     runs-on: ubuntu-latest
   
     steps:
+      - name: Install hey
+        run: sudo apt update && sudo apt install -y hey
+
       - name: Stress Test
         run: |
-          curl -X GET "http://${{ secrets.EC2_HOST }}:8080" &>/dev/null
-          hey -n 1000 -c 100 "http://${{ secrets.EC2_HOST }}:8080"
+          response=$(curl -o /dev/null -s -w "%{http_code}" "https://${{ secrets.EC2_HOST }}")
+          if [ "$response" -eq 200 ]; then
+            hey -n 1000 -c 100 "https://${{ secrets.EC2_HOST }}"
+          else
+            echo "Backend not responding, skipping stress test."
+            exit 1
+          fi
 
 
   notify-discord:

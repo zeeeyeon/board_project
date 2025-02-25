@@ -12,8 +12,3 @@ spring:
     redis:
       host: localhost
       port: 6379
-
-jwt:
-  secret: "your_super_secret_key_for_jwt_signing"
-  access-token-expiration: 1800000
-  refresh-token-expiration: 2592000000
