@@ -64,7 +64,6 @@ jobs:
             exit 1
           fi
 
-
   notify-discord:
     needs: stress-test
     runs-on: ubuntu-latest
