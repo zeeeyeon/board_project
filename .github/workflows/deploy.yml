@@ -35,6 +35,15 @@ jobs:
             docker tag spring-app:latest $DOCKER_REPO:latest
             docker push $DOCKER_REPO:latest
 
+      - name: Upload project files to EC2
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "."
+          target: "/home/ubuntu/app"
+
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
         with:
