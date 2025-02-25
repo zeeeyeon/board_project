@@ -60,7 +60,6 @@ jobs:
             is_redis_running=$(echo "$running_containers" | grep -w "redis" || echo "")
 
             if [ -n "$is_backend_running" ]; then
-              echo "Stopping and removing existing backend container..."
               docker-compose stop backend
               docker-compose rm -f backend
             fi
