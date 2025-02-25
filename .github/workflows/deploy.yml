@@ -55,6 +55,9 @@ jobs:
             running_containers=$(docker ps --format "{{.Names}}")
 
             is_backend_running=$(echo "$running_containers" | grep -w "backend" || echo "")
+            is_nginx_running=$(echo "$running_containers" | grep -w "nginx" || echo "")
+            is_mongo_running=$(echo "$running_containers" | grep -w "mongo" || echo "")
+            is_redis_running=$(echo "$running_containers" | grep -w "redis" || echo "")
 
             if [ -n "$is_backend_running" ]; then
               echo "Stopping and removing existing backend container..."
@@ -67,6 +70,24 @@ jobs:
 
             echo "Starting backend container..."
             docker-compose up -d --no-deps backend
+
+            if [ -z "$is_nginx_running" ] && [ -z "$is_mongo_running" ] && [ -z "$is_redis_running" ]; then
+              echo "No running containers found. Starting all services..."
+              docker-compose up -d
+            fi
+
+            if [ -z "$is_mongo_running" ]; then
+              echo "MongoDB is down! Restarting..."
+              docker-compose up -d mongo
+            fi
+            if [ -z "$is_redis_running" ]; then
+              echo "Redis is down! Restarting..."
+              docker-compose up -d redis
+            fi
+            if [ -z "$is_nginx_running" ]; then
+              echo "Nginx is down! Restarting..."
+              docker-compose up -d nginx
+            fi
 
       - name: Ensure Backend is Running
         uses: appleboy/ssh-action@master
