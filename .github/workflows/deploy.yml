@@ -18,12 +18,15 @@ jobs:
       - name: Grant execute permission
         run: chmod +x backend/gradlew
 
-      - name: Docker Image Build
+      - name: Spring Boot Build
         run: |
-            cd backend
-            ./gradlew clean build --no-daemon
-            cd ..
-            docker build -t spring-app:latest ./backend
+          cd backend
+          ./gradlew clean build --no-daemon
+          cp build/libs/*.jar .
+          cd ..
+
+      - name: Build Docker Image
+        run: docker build -t spring-app:latest ./backend
 
       - name: Push to Docker Hub
         run: |
