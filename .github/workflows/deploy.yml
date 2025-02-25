@@ -41,7 +41,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: "."
+          source: "docker-compose.yml,docker-compose.override.yml,nginx/"
           target: "/home/ubuntu/app"
 
       - name: Deploy to EC2
@@ -52,12 +52,13 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd /home/ubuntu/app
-
             running_containers=$(docker ps -q | wc -l)
 
             if [ "$running_containers" -ge 3 ]; then
               docker-compose pull backend
-              docker-compose up -d --no-deps backend
+              docker-compose stop backend
+              docker-compose rm -f backend
+              docker-compose up -d backend
             else
               docker-compose pull
               docker-compose up -d
