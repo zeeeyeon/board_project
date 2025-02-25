@@ -55,28 +55,52 @@ jobs:
             running_containers=$(docker ps --format "{{.Names}}")
 
             is_backend_running=$(echo "$running_containers" | grep -w "backend" || echo "")
-            is_nginx_running=$(echo "$running_containers" | grep -w "nginx" || echo "")
-            is_mongo_running=$(echo "$running_containers" | grep -w "mongo" || echo "")
-            is_redis_running=$(echo "$running_containers" | grep -w "redis" || echo "")
 
-            if [ -n "$is_backend_running" ] && [ -n "$is_nginx_running" ] && [ -n "$is_mongo_running" ] && [ -n "$is_redis_running" ]; then
-              docker-compose pull backend
-              docker-compose up -d --no-deps backend
+            if [ -n "$is_backend_running" ]; then
+              echo "Stopping and removing existing backend container..."
+              docker-compose stop backend
+              docker-compose rm -f backend
+            fi
 
-            elif [ -z "$is_backend_running" ]; then
-              docker-compose up -d backend
-            
-            elif [ -z "$is_nginx_running" ]; then
-              docker-compose up -d nginx
+            echo "Pulling latest backend image..."
+            docker-compose pull backend
 
-            elif [ -z "$is_mongo_running" ]; then
-              docker-compose up -d mongo
+            echo "Starting backend container..."
+            docker-compose up -d --no-deps backend
 
-            elif [ -z "$is_redis_running" ]; then
-              docker-compose up -d redis
-            
+      - name: Ensure Backend is Running
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            sleep 10 
+            backend_status=$(docker ps --filter "name=backend" --filter "status=running" -q)
+
+            if [ -z "$backend_status" ]; then
+              echo "Backend container is not running! Restarting..."
+              docker-compose restart backend
             else
-              docker-compose up -d
+              echo "Backend is running successfully!"
+            fi
+
+      - name: Health Check
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            echo "Checking backend health..."
+            response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/actuator/health)
+
+            if [ "$response" -eq 200 ]; then
+              echo "Backend is healthy!"
+            else
+              echo "Backend is not responding! Check logs."
+              docker logs backend
+              exit 1
             fi
 
 
