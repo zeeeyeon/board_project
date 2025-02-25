@@ -52,8 +52,16 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd /home/ubuntu/app
-            docker-compose pull
-            docker-compose up -d --no-deps backend
+
+            running_containers=$(docker ps -q | wc -l)
+
+            if [ "$running_containers" -ge 3 ]; then
+              docker-compose pull backend
+              docker-compose up -d --no-deps backend
+            else
+              docker-compose pull
+              docker-compose up -d
+            fi
 
   stress-test:
     needs: deploy
