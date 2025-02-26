@@ -30,10 +30,10 @@ jobs:
 
       - name: Push to Docker Hub
         run: |
-            echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_ID }}" --password-stdin
-            DOCKER_REPO="zeeyeon/board"
-            docker tag spring-app:latest $DOCKER_REPO:latest
-            docker push $DOCKER_REPO:latest
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_ID }}" --password-stdin
+          DOCKER_REPO="zeeyeon/board"
+          docker tag spring-app:latest $DOCKER_REPO:latest
+          docker push $DOCKER_REPO:latest
 
       - name: Upload project files to EC2
         uses: appleboy/scp-action@master
@@ -95,59 +95,44 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            sleep 10 
-            backend_status=$(docker ps --filter "name=backend" --filter "status=running" -q)
-
-            if [ -z "$backend_status" ]; then
-              echo "Backend container is not running! Restarting..."
-              docker-compose restart backend
-            else
-              echo "Backend is running successfully!"
-            fi
-
-      - name: Health Check
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            echo "Checking backend health..."
-            response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/actuator/health)
-
-            if [ "$response" -eq 200 ]; then
-              echo "Backend is healthy!"
-            else
-              echo "Backend is not responding! Check logs."
-              docker logs backend
-              exit 1
-            fi
-
+            echo "Waiting for backend to start..."
+            for i in {1..30}; do
+                response=$(curl -o /dev/null -s -w "%{http_code}" "https://${{ secrets.EC2_HOST }}/api/health")
+                if [ "$response" -eq 200 ]; then
+                    echo "Backend is up!"
+                    break
+                fi
+                echo "Backend not ready, retrying in 3 seconds..."
+                sleep 3
+            done
+  
 
   stress-test:
     needs: deploy
     runs-on: ubuntu-latest
-  
+
     steps:
       - name: Install hey
         run: sudo apt update && sudo apt install -y hey
 
       - name: Stress Test
         run: |
-          response=$(curl -o /dev/null -s -w "%{http_code}" "https://${{ secrets.EC2_HOST }}")
+          response=$(curl -o /dev/null -s -w "%{http_code}" "https://zeeyeon.duckdns.org/actuator/health")
+  
           if [ "$response" -eq 200 ]; then
-            hey -n 1000 -c 100 "https://${{ secrets.EC2_HOST }}"
+          hey -n 1000 -c 100 "https://zeeyeon.duckdns.org/actuator/health"
           else
-            echo "Backend not responding, skipping stress test."
-            exit 1
+          echo "Backend not responding, skipping stress test."
+          exit 1
           fi
 
+
   notify-discord:
-    needs: stress-test
-    runs-on: ubuntu-latest
-  
-    steps:
-      - name: Discord Notification
-        uses: rjstone/discord-webhook-notify@v1
-        with:
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      needs: stress-test
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Discord Notification
+          uses: rjstone/discord-webhook-notify@v1
+          with:
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
