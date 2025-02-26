@@ -117,15 +117,17 @@ jobs:
 
       - name: Stress Test
         run: |
-          response=$(curl -o /dev/null -s -w "%{http_code}" "https://${{ secrets.EC2_HOST }}")
+          response=$(curl -o /dev/null -s -w "%{http_code}" "https://zeeyeon.duckdns.org/actuator/health")
+  
           if [ "$response" -eq 200 ]; then
-            hey -n 1000 -c 100 "https://${{ secrets.EC2_HOST }}"
+          hey -n 1000 -c 100 "https://zeeyeon.duckdns.org/actuator/health"
           else
-            echo "Backend not responding, skipping stress test."
-            exit 1
+          echo "Backend not responding, skipping stress test."
+          exit 1
           fi
 
-  notify-discord:
+
+notify-discord:
     needs: stress-test
     runs-on: ubuntu-latest
 
