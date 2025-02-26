@@ -95,16 +95,17 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            sleep 10 
-            backend_status=$(docker ps --filter "name=backend" --filter "status=running" -q)
-
-            if [ -z "$backend_status" ]; then
-              echo "Backend container is not running! Restarting..."
-              docker-compose restart backend
-            else
-              echo "Backend is running successfully!"
-            fi
-
+            echo "Waiting for backend to start..."
+            for i in {1..30}; do
+                response=$(curl -o /dev/null -s -w "%{http_code}" "https://${{ secrets.EC2_HOST }}/api/health")
+                if [ "$response" -eq 200 ]; then
+                    echo "Backend is up!"
+                    break
+                fi
+                echo "Backend not ready, retrying in 3 seconds..."
+                sleep 3
+            done
+  
 
   stress-test:
     needs: deploy
