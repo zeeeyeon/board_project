@@ -126,20 +126,27 @@ jobs:
           exit 1
           fi
 
+      - name: Upload Stress Test Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: stress-test-results
+          path: stress_test_result.txt
+
 
   notify-discord:
     needs: stress-test
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download Test Results
+      - name: Download Stress Test Results
         uses: actions/download-artifact@v4
         with:
           name: stress-test-results
+          path: .
 
-      - name: Extract Metrics & Send Discord
+      - name: Send Discord Notification
         run: |
-          if grep -q "FAIL" stress_test_result.txt; then
+          if grep -q "Backend not responding" stress_test_result.txt; then
             STATUS="🚨 *Backend is DOWN! Stress test failed!*"
           else
             TPS=$(grep "Requests/sec" stress_test_result.txt | awk '{print $2}')
