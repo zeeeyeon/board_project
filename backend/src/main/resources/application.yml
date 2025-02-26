@@ -7,10 +7,10 @@ spring:
 
   data:
     mongodb:
-      uri: mongodb://localhost:27017/board
+      uri: mongodb://mongo:27017/board
 
     redis:
-      host: localhost
+      host: redis
       port: 6379
 
 management:
