@@ -18,6 +18,10 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /etc/ssl/certs:/etc/ssl/certs:ro
+      - ./nginx/static:/usr/share/nginx/html
     depends_on:
       - backend
 
