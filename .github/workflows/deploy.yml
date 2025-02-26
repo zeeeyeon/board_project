@@ -115,15 +115,23 @@ jobs:
       - name: Install hey
         run: sudo apt update && sudo apt install -y hey
 
-      - name: Stress Test
+      - name: Run Stress Test & Save Results
         run: |
-          response=$(curl -o /dev/null -s -w "%{http_code}" "https://zeeyeon.duckdns.org/actuator/health")
-  
-          if [ "$response" -eq 200 ]; then
-          hey -n 1000 -c 100 "https://zeeyeon.duckdns.org/actuator/health"
+            response=$(curl -o /dev/null -s -w "%{http_code}" "https://zeeyeon.duckdns.org/actuator/health")
+            if [ "$response" -eq 200 ]; then
+            hey -n 1000 -c 100 "https://zeeyeon.duckdns.org/actuator/health" > stress_test_result.txt
+            else
+            echo "Backend not responding, skipping stress test." > stress_test_result.txt
+            exit 1
+            fi
+
+      - name: Check if stress test file exists
+        run: |
+          if [ ! -f stress_test_result.txt ]; then
+            echo "❌ stress_test_result.txt 파일이 생성되지 않았습니다."
+            exit 1
           else
-          echo "Backend not responding, skipping stress test."
-          exit 1
+            echo "✅ stress_test_result.txt 파일이 정상적으로 생성되었습니다."
           fi
 
       - name: Upload Stress Test Results
