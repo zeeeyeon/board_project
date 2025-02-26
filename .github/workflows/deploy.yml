@@ -127,12 +127,12 @@ jobs:
           fi
 
 
-notify-discord:
-    needs: stress-test
-    runs-on: ubuntu-latest
+  notify-discord:
+      needs: stress-test
+      runs-on: ubuntu-latest
 
-    steps:
-      - name: Discord Notification
-        uses: rjstone/discord-webhook-notify@v1
-        with:
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      steps:
+        - name: Discord Notification
+          uses: rjstone/discord-webhook-notify@v1
+          with:
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
