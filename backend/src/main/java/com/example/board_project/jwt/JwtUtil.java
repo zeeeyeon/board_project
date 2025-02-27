@@ -29,8 +29,12 @@ public class JwtUtil {
 
     @PostConstruct
     public void init() {
-        byte[] decodedKey = Base64.getDecoder().decode(secretKey.getBytes(StandardCharsets.UTF_8));
-        this.key = Keys.hmacShaKeyFor(decodedKey);
+        try {
+            byte[] decodedKey = Base64.getDecoder().decode(secretKey);
+            this.key = Keys.hmacShaKeyFor(decodedKey);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("Invalid Base64-encoded secret key. Make sure it is properly encoded.", e);
+        }
     }
 
     public String generateAccessToken(String username, String role) {
