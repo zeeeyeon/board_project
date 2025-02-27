@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.util.Base64;
 import java.util.Date;
 
 @Component
@@ -29,12 +28,7 @@ public class JwtUtil {
 
     @PostConstruct
     public void init() {
-        try {
-            byte[] decodedKey = Base64.getDecoder().decode(secretKey);
-            this.key = Keys.hmacShaKeyFor(decodedKey);
-        } catch (IllegalArgumentException e) {
-            throw new RuntimeException("Invalid Base64-encoded secret key. Make sure it is properly encoded.", e);
-        }
+        this.key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 
     public String generateAccessToken(String username, String role) {
