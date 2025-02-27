@@ -21,3 +21,8 @@ management:
   endpoint:
     health:
       show-details: always
+
+jwt:
+  secretKey: "hciweieisjksdkjxnsdksdsflccslhfsdkhdshkjcshkcsjksdjfk"
+  access-token-expiration: 1800000
+  refresh-token-expiration: 604800000
