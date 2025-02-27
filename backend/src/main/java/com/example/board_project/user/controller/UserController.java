@@ -25,12 +25,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Response<TokenResponse> login(@Valid @RequestBody LoginRequest request) {
+    public Response<?> login(@Valid @RequestBody LoginRequest request) {
         return Response.create(ResponseCode.SUCCESS, userService.login(request));
     }
 
     @PostMapping("/refresh")
-    public Response<TokenResponse> refreshToken(@RequestParam String username, @RequestParam String refreshToken) {
+    public Response<?> refreshToken(@RequestParam String username, @RequestParam String refreshToken) {
         return Response.create(ResponseCode.SUCCESS, userService.refreshToken(username, refreshToken));
     }
 
