@@ -3,12 +3,11 @@ package com.example.board_project.user.controller;
 import com.example.board_project.global.response.Response;
 import com.example.board_project.global.response.ResponseCode;
 import com.example.board_project.user.dto.LoginRequest;
+import com.example.board_project.user.dto.RefreshRequest;
 import com.example.board_project.user.dto.SignupRequest;
-import com.example.board_project.user.dto.TokenResponse;
 import com.example.board_project.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,9 +28,10 @@ public class UserController {
         return Response.create(ResponseCode.SUCCESS, userService.login(request));
     }
 
+    // accessToken 만료되었을 시 보내는 요청
     @PostMapping("/refresh")
-    public Response<?> refreshToken(@RequestParam String username, @RequestParam String refreshToken) {
-        return Response.create(ResponseCode.SUCCESS, userService.refreshToken(username, refreshToken));
+    public Response<?> refreshToken(@RequestBody RefreshRequest request) {
+        return Response.create(ResponseCode.SUCCESS, userService.refreshToken(request));
     }
 
     @PostMapping("/logout")
