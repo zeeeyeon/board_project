@@ -4,6 +4,7 @@ import com.example.board_project.global.exception.CustomException;
 import com.example.board_project.global.response.ResponseCode;
 import com.example.board_project.jwt.JwtUtil;
 import com.example.board_project.user.dto.LoginRequest;
+import com.example.board_project.user.dto.RefreshRequest;
 import com.example.board_project.user.dto.SignupRequest;
 import com.example.board_project.user.dto.TokenResponse;
 import com.example.board_project.user.entity.Role;
@@ -31,7 +32,6 @@ public class UserService {
         }
 
         Role role = request.getRole();
-
         User user = new User(request.username(), passwordEncoder.encode(request.password()), role);
         userRepository.save(user);
     }
@@ -46,24 +46,29 @@ public class UserService {
         }
 
         String accessToken = jwtUtil.generateAccessToken(user.getUsername(), user.getRole().name());
-        String refreshToken = jwtUtil.generateRefreshToken(user.getUsername());
 
-        refreshTokenRepository.save(user.getUsername(), refreshToken);
+        String refreshToken = refreshTokenRepository.find(request.username())
+                .orElseGet(() -> {
+                    String newToken = jwtUtil.generateRefreshToken(request.username());
+                    refreshTokenRepository.save(request.username(), newToken);
+                    return newToken;
+                });
 
         return new TokenResponse(accessToken, refreshToken);
     }
 
     @Transactional
-    public TokenResponse refreshToken(String username, String refreshToken) {
-        String savedToken = refreshTokenRepository.find(username)
+    public TokenResponse refreshToken(RefreshRequest request) {
+        String storedRefreshToken = refreshTokenRepository.find(request.username())
                 .orElseThrow(() -> new CustomException(ResponseCode.REFRESH_TOKEN_NOT_FOUND));
 
-        if (!savedToken.equals(refreshToken) || !jwtUtil.validateToken(refreshToken)) {
+        if (!storedRefreshToken.equals(request.refreshToken()) || !jwtUtil.validateToken(request.refreshToken())) {
             throw new CustomException(ResponseCode.TOKEN_EXPIRED);
         }
 
-        String newAccessToken = jwtUtil.generateAccessToken(username, "USER");
-        return new TokenResponse(newAccessToken, refreshToken);
+        String newAccessToken = jwtUtil.generateAccessToken(request.username(), "USER");
+
+        return new TokenResponse(newAccessToken, request.refreshToken());
     }
 
     @Transactional
