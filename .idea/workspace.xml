@@ -126,7 +126,7 @@
       <workItem from="1740374565922" duration="7719000" />
       <workItem from="1740442252765" duration="10120000" />
       <workItem from="1740620039174" duration="16710000" />
-      <workItem from="1741076278292" duration="2168000" />
+      <workItem from="1741076278292" duration="3180000" />
     </task>
     <task id="LOCAL-00001" summary="Feat: mongo, redis uri, port 설정">
       <option name="closed" value="true" />
