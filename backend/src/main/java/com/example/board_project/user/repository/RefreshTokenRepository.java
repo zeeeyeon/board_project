@@ -29,9 +29,11 @@ public class RefreshTokenRepository {
     }
 
     public void delete(String username) {
+        log.info("Delete user: {}", username);
         try {
             Boolean result = redisTemplate.delete(username);
             if (Boolean.FALSE.equals(result)) {
+                log.error("Delete user fail: {}", username);
                 throw new CustomException(INTERNAL_SERVER_ERROR);
             }
         } catch (Exception e) {
