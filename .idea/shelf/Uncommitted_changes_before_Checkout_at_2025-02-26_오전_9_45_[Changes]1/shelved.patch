@@ -1,0 +1,20 @@
+Index: backend/settings.gradle
+===================================================================
+diff --git a/backend/settings.gradle b/backend/settings.gradle
+deleted file mode 100644
+--- a/backend/settings.gradle	(revision 9f40823fa9b7f304e961dfd3d2b38cc3030b01af)
++++ /dev/null	(revision 9f40823fa9b7f304e961dfd3d2b38cc3030b01af)
+@@ -1,1 +0,0 @@
+-rootProject.name = 'board_project'
+Index: settings.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/settings.gradle b/settings.gradle
+new file mode 100644
+--- /dev/null	(date 1740530077700)
++++ b/settings.gradle	(date 1740530077700)
+@@ -0,0 +1,2 @@
++rootProject.name = 'board_project'
++include 'backend'

@@ -26,5 +26,5 @@ management:
 
 jwt:
   secretKey: "hciweieisjksdkjxnsdksdsflccslhfsdkhdshkjcshkcsjksdjfk"
-  access-token-expiration: 1800000
+  access-token-expiration: 1800
   refresh-token-expiration: 604800000

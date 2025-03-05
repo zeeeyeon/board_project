@@ -4,17 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c4ed1845-e382-4a35-88b9-13b48ca27d7d" name="Changes" comment="Feat: Dockerfile 설정">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/deploy.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/deploy.yml" afterDir="false" />
+    <list default="true" id="c4ed1845-e382-4a35-88b9-13b48ca27d7d" name="Changes" comment="Refactor: api 경로 수정">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/backend/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.override.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.override.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nginx/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/nginx/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nginx/default.conf" beforeDir="false" afterPath="$PROJECT_DIR$/nginx/default.conf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,13 +38,18 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Dockerfile" />
+        <option value="package-info" />
+        <option value="Enum" />
+        <option value="Record" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature/refactor-directory" />
+        <entry key="$PROJECT_DIR$" value="develop" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -77,26 +73,26 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.Build board_project.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.BoardProjectApplication.executor": "Run",
-    "git-widget-placeholder": "Merging develop",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.Build board_project.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.BoardProjectApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\SSAFY\Desktop\board_project\backend" />
@@ -104,7 +100,7 @@
   </component>
   <component name="RunManager">
     <configuration name="BoardProjectApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="board_project.main" />
+      <module name="board_project.backend.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.board_project.BoardProjectApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -129,6 +125,8 @@
       <updated>1740374564850</updated>
       <workItem from="1740374565922" duration="7719000" />
       <workItem from="1740442252765" duration="10120000" />
+      <workItem from="1740620039174" duration="16710000" />
+      <workItem from="1741076278292" duration="2168000" />
     </task>
     <task id="LOCAL-00001" summary="Feat: mongo, redis uri, port 설정">
       <option name="closed" value="true" />
@@ -146,7 +144,223 @@
       <option name="project" value="LOCAL" />
       <updated>1740382531600</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Merging develop">
+      <option name="closed" value="true" />
+      <created>1740539889631</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1740539889631</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Refactor: 디스코드로 스트레스 테스트 결과 전송 로직 추가">
+      <option name="closed" value="true" />
+      <created>1740540572073</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1740540572073</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Refactor: 디스코드로 스트레스 테스트 결과 전송 로직 v3 -&gt; v4 업데이트">
+      <option name="closed" value="true" />
+      <created>1740540958117</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1740540958117</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Refactor: hey 결과 파일 저장">
+      <option name="closed" value="true" />
+      <created>1740545875555</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1740545875555</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Refactor: 업로드된 아티팩트 목록을 확인하는 단계 추가">
+      <option name="closed" value="true" />
+      <created>1740546664052</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1740546664052</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Feat: ResponseCode 응답 코드">
+      <option name="closed" value="true" />
+      <created>1740641267020</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1740641267020</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Feat: User Entity">
+      <option name="closed" value="true" />
+      <created>1740641290726</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1740641290726</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Feat: 회원가입, 로그인 기능 추가">
+      <option name="closed" value="true" />
+      <created>1740641305411</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1740641305411</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Feat: security config 설정">
+      <option name="closed" value="true" />
+      <created>1740641320263</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1740641320263</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Feat: redis refresh token 관련 config">
+      <option name="closed" value="true" />
+      <created>1740641341538</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1740641341538</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Feat: record 형식으로 dto 작성">
+      <option name="closed" value="true" />
+      <created>1740641565231</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1740641565231</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Feat: Role type user, admin">
+      <option name="closed" value="true" />
+      <created>1740641613216</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1740641613216</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Feat: 닉네임 중복 체크">
+      <option name="closed" value="true" />
+      <created>1740641635269</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1740641635269</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Feat: jwt 관련 설정">
+      <option name="closed" value="true" />
+      <created>1740641658356</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1740641658356</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Feat: 전역 예외처리">
+      <option name="closed" value="true" />
+      <created>1740641676179</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1740641676179</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Feat: signup, login 추가">
+      <option name="closed" value="true" />
+      <created>1740641768914</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1740641768914</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Feat: refreshToken 저장">
+      <option name="closed" value="true" />
+      <created>1740641830720</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1740641830720</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Feat: security, jwt 관련 라이브러리 추가">
+      <option name="closed" value="true" />
+      <created>1740641851856</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1740641851856</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Feat: security, jwt 관련 라이브러리 추가">
+      <option name="closed" value="true" />
+      <created>1740641856261</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1740641856261</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Feat: CustomException">
+      <option name="closed" value="true" />
+      <created>1740641936213</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1740641936213</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Feat: User 엔티티를 UserDetails 찾기">
+      <option name="closed" value="true" />
+      <created>1740641994538</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1740641994538</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Feat: admin 권한 체크 테스트 로직 작성">
+      <option name="closed" value="true" />
+      <created>1740642015272</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1740642015272</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Refactor: Base64 디코딩 방식 체크">
+      <option name="closed" value="true" />
+      <created>1740642382069</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1740642382069</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Refactor: Base64 없이 디코딩 설정">
+      <option name="closed" value="true" />
+      <created>1740642654874</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1740642654874</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Refactor: /actuator/health에 대한 접근 허용">
+      <option name="closed" value="true" />
+      <created>1740643266189</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1740643266189</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Refactor: redis 환경 변수 설정">
+      <option name="closed" value="true" />
+      <created>1740644131945</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1740644131945</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Refactor: api 경로 수정">
+      <option name="closed" value="true" />
+      <created>1740646125380</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1740646125380</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -164,8 +378,31 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Feat: mongo, redis uri, port 설정" />
-    <MESSAGE value="Feat: Dockerfile 설정" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feat: Dockerfile 설정" />
+    <MESSAGE value="Refactor: 디스코드로 스트레스 테스트 결과 전송 로직 추가" />
+    <MESSAGE value="Refactor: 디스코드로 스트레스 테스트 결과 전송 로직 v3 -&gt; v4 업데이트" />
+    <MESSAGE value="Refactor: hey 결과 파일 저장" />
+    <MESSAGE value="Refactor: 업로드된 아티팩트 목록을 확인하는 단계 추가" />
+    <MESSAGE value="Feat: ResponseCode 응답 코드" />
+    <MESSAGE value="Feat: User Entity" />
+    <MESSAGE value="Feat: 회원가입, 로그인 기능 추가" />
+    <MESSAGE value="Feat: security config 설정" />
+    <MESSAGE value="Feat: redis refresh token 관련 config" />
+    <MESSAGE value="Feat: record 형식으로 dto 작성" />
+    <MESSAGE value="Feat: Role type user, admin" />
+    <MESSAGE value="Feat: 닉네임 중복 체크" />
+    <MESSAGE value="Feat: jwt 관련 설정" />
+    <MESSAGE value="Feat: 전역 예외처리" />
+    <MESSAGE value="Feat: signup, login 추가" />
+    <MESSAGE value="Feat: refreshToken 저장" />
+    <MESSAGE value="Feat: security, jwt 관련 라이브러리 추가" />
+    <MESSAGE value="Feat: CustomException" />
+    <MESSAGE value="Feat: User 엔티티를 UserDetails 찾기" />
+    <MESSAGE value="Feat: admin 권한 체크 테스트 로직 작성" />
+    <MESSAGE value="Refactor: Base64 디코딩 방식 체크" />
+    <MESSAGE value="Refactor: Base64 없이 디코딩 설정" />
+    <MESSAGE value="Refactor: /actuator/health에 대한 접근 허용" />
+    <MESSAGE value="Refactor: redis 환경 변수 설정" />
+    <MESSAGE value="Refactor: api 경로 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor: api 경로 수정" />
   </component>
 </project>
